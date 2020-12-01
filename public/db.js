@@ -22,6 +22,14 @@ const saveRecord = (record) => {
     const transaction = db.transaction(['pending'], 'readwrite');
     const transactionStore = transaction.objectStore('pending');
     transactionStore.add(record);
+
+    document.querySelector(".modal").setAttribute("class", "modal offline");
+    document.querySelector("#internetModal").style.display = "flex";
+    document.querySelector("#internetOffline").style.display = "block";
+    setTimeout(function() {
+        document.querySelector("#internetModal").style.display = "none";
+        document.querySelector("#internetOffline").style.display = "none";
+    }, 1500);
 }
 
 const checkDatabase = () => {
@@ -44,6 +52,14 @@ const checkDatabase = () => {
                 const transaction = db.transaction(['pending'], 'readwrite');
                 const pendingStore = transaction.objectStore('pending');
                 pendingStore.clear();
+
+                document.querySelector(".modal").setAttribute("class", "modal online");
+                document.querySelector("#internetModal").style.display = "flex";
+                document.querySelector("#internetOnline").style.display = "block";
+                setTimeout(function() {
+                    document.querySelector("#internetModal").style.display = "none";
+                    document.querySelector("#internetOnline").style.display = "none";
+                }, 1500);
             });
         }
     };
